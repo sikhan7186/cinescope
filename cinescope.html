@@ -404,8 +404,11 @@ main { position: relative; z-index: 1; padding-bottom: 80px; }
 footer {
   padding: 40px clamp(16px, 5vw, 60px);
   border-top: 1px solid var(--border);
+  margin-top: 60px;
+}
+.footer-top {
   display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 16px; margin-top: 60px;
+  flex-wrap: wrap; gap: 16px; margin-bottom: 40px;
 }
 .footer-logo {
   font-family: 'Bebas Neue', cursive; font-size: 1.4rem;
@@ -414,6 +417,61 @@ footer {
 .footer-logo span { color: var(--accent); }
 .footer-credit { font-size: 0.75rem; color: var(--muted); }
 .footer-credit a { color: var(--blue); text-decoration: none; }
+
+/* CONTACT */
+.contact-section {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 24px; padding: 32px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 32px; margin-bottom: 40px;
+}
+@media(max-width:600px) { .contact-section { grid-template-columns: 1fr; } }
+.contact-title {
+  font-family: 'Bebas Neue', cursive; font-size: 1.8rem;
+  letter-spacing: 2px; margin-bottom: 6px;
+  grid-column: 1/-1;
+  display: flex; align-items: center; gap: 10px;
+}
+.contact-title::before {
+  content:''; display:block; width:4px; height:28px;
+  background: var(--accent); border-radius: 99px;
+}
+.contact-info { display: flex; flex-direction: column; gap: 14px; }
+.contact-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px; background: var(--surface);
+  border-radius: 14px; border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.contact-item:hover { border-color: var(--accent); }
+.contact-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(230,57,70,0.15); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.contact-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+.contact-value { font-size: 0.88rem; font-weight: 500; }
+.contact-value a { color: var(--text); text-decoration: none; }
+.contact-value a:hover { color: var(--accent); }
+.contact-form { display: flex; flex-direction: column; gap: 12px; }
+.form-input, .form-textarea {
+  width: 100%; padding: 13px 16px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; color: var(--text);
+  font-size: 0.88rem; font-family: 'DM Sans', sans-serif;
+  outline: none; transition: border-color 0.2s;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+.form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+.form-textarea { resize: vertical; min-height: 100px; }
+.form-submit {
+  padding: 13px; border-radius: 12px;
+  background: var(--accent); border: none; color: white;
+  font-size: 0.9rem; font-weight: 700; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+}
+.form-submit:hover { background: #c1121f; }
 
 /* LOADER */
 .loader {
@@ -459,6 +517,143 @@ footer {
   .stat-item:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
   .modal-backdrop { height: 200px; }
 }
+
+/* ADMIN FAB */
+.admin-fab {
+  position: fixed; bottom: 90px; right: 20px; z-index: 150;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--card); border: 1px solid var(--border);
+  font-size: 1.3rem; cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+.admin-fab:hover { background: var(--accent); transform: scale(1.1); }
+
+/* ADMIN PANEL */
+.admin-overlay {
+  position: fixed; inset: 0; z-index: 400;
+  background: rgba(4,4,10,0.98);
+  display: flex; flex-direction: column;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  overflow-y: auto;
+}
+.admin-overlay.open { opacity: 1; pointer-events: all; }
+.admin-header {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(8,8,16,0.97); backdrop-filter: blur(12px);
+  padding: 16px clamp(16px,5vw,60px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.admin-title {
+  font-family: "Bebas Neue", cursive; font-size: 1.6rem;
+  letter-spacing: 2px; display: flex; align-items: center; gap: 10px;
+}
+.admin-title span { color: var(--accent); }
+.admin-close {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--text); font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.admin-close:hover { background: var(--accent); }
+.admin-body {
+  padding: clamp(16px,4vw,40px) clamp(16px,5vw,60px);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 24px; max-width: 1000px; width: 100%; margin: 0 auto;
+}
+@media(max-width:650px) { .admin-body { grid-template-columns: 1fr; } }
+.admin-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 24px;
+}
+.admin-card.full { grid-column: 1/-1; }
+.admin-card-title {
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--accent); font-weight: 700; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.admin-input, .admin-textarea, .admin-select {
+  width: 100%; padding: 12px 14px; margin-bottom: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; color: var(--text);
+  font-size: 0.88rem; font-family: "DM Sans", sans-serif;
+  outline: none; transition: border-color 0.2s;
+}
+.admin-input:focus, .admin-textarea:focus, .admin-select:focus { border-color: var(--accent); }
+.admin-input::placeholder, .admin-textarea::placeholder { color: var(--muted); }
+.admin-textarea { resize: vertical; min-height: 90px; }
+.admin-select option { background: var(--card); }
+.admin-submit {
+  width: 100%; padding: 14px; border-radius: 14px;
+  background: var(--accent); border: none; color: white;
+  font-size: 0.95rem; font-weight: 700; cursor: pointer;
+  font-family: "DM Sans", sans-serif; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.admin-submit:hover { background: #c1121f; transform: scale(0.99); }
+.admin-preview {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 16px; margin-bottom: 12px;
+  display: flex; gap: 14px; align-items: center;
+}
+.admin-preview-poster {
+  width: 60px; height: 88px; border-radius: 10px;
+  background: var(--card); object-fit: cover; flex-shrink: 0;
+  border: 1px solid var(--border); display: flex;
+  align-items: center; justify-content: center; font-size: 1.5rem;
+}
+.admin-preview-info { flex: 1; }
+.admin-preview-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+.admin-preview-meta { font-size: 0.78rem; color: var(--muted); }
+.movie-list-item {
+  display: flex; gap: 12px; align-items: center;
+  padding: 12px; background: var(--surface);
+  border-radius: 12px; border: 1px solid var(--border);
+  margin-bottom: 10px; animation: fadeUp 0.3s ease;
+}
+.movie-list-thumb {
+  width: 44px; height: 64px; border-radius: 8px;
+  background: var(--card); object-fit: cover; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+}
+.movie-list-info { flex: 1; }
+.movie-list-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; }
+.movie-list-meta { font-size: 0.72rem; color: var(--muted); }
+.movie-list-del {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
+  color: #ef4444; cursor: pointer; font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.movie-list-del:hover { background: #ef4444; color: white; }
+.admin-login {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; min-height: 100vh; gap: 16px; padding: 20px;
+}
+.admin-login-box {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 24px; padding: 40px 32px; width: 100%; max-width: 380px;
+  text-align: center;
+}
+.admin-login-title {
+  font-family: "Bebas Neue", cursive; font-size: 2rem;
+  letter-spacing: 2px; margin-bottom: 8px;
+}
+.admin-login-sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 24px; }
+.stats-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 0;
+}
+.stat-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 16px; text-align: center;
+}
+.stat-box-num {
+  font-family: "Bebas Neue", cursive; font-size: 1.8rem; color: var(--accent);
+}
+.stat-box-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
 </style>
 </head>
 <body>
@@ -471,6 +666,8 @@ footer {
     <button class="nav-link" onclick="scrollToSection('nowplaying')">Now Playing</button>
     <button class="nav-link" onclick="scrollToSection('upcoming')">Upcoming</button>
     <button class="nav-link" onclick="scrollToSection('toprated')">Top Rated</button>
+    <button class="nav-link" onclick="scrollToSection('freemovies')">🆓 ফ্রি মুভি</button>
+    <button class="nav-link" onclick="scrollToSection('contact')">যোগাযোগ</button>
   </div>
   <button class="nav-search-btn" onclick="openSearch()">🔍</button>
 </nav>
@@ -547,11 +744,92 @@ footer {
   </div>
 </main>
 
+
+  <!-- FREE MOVIES SECTION -->
+  <div class="section" id="freemovies">
+    <div class="section-head">
+      <div class="section-title">🆓 ফ্রিতে দেখুন</div>
+      <button class="see-all">সব দেখুন →</button>
+    </div>
+
+    <!-- Platform Tabs -->
+    <div class="cats" style="margin-bottom:16px">
+      <div class="cat-chip active" onclick="filterFree(this,'all')">সব</div>
+      <div class="cat-chip" onclick="filterFree(this,'youtube')">▶ YouTube</div>
+      <div class="cat-chip" onclick="filterFree(this,'chorki')">🇧🇩 Chorki</div>
+      <div class="cat-chip" onclick="filterFree(this,'hoichoi')">🎬 Hoichoi</div>
+      <div class="cat-chip" onclick="filterFree(this,'bongo')">📺 Bongo BD</div>
+    </div>
+
+    <div class="movie-grid" id="freeMoviesGrid"></div>
+  </div>
+
+<!-- FOOTER -->
+
+
+  <!-- FREE MOVIES SECTION -->
+  <div class="section" id="freemovies">
+    <div class="section-head">
+      <div class="section-title">🆓 ফ্রিতে দেখুন</div>
+      <button class="see-all">সব দেখুন →</button>
+    </div>
+
+    <!-- Platform Tabs -->
+    <div class="cats" style="margin-bottom:16px">
+      <div class="cat-chip active" onclick="filterFree(this,'all')">সব</div>
+      <div class="cat-chip" onclick="filterFree(this,'youtube')">▶ YouTube</div>
+      <div class="cat-chip" onclick="filterFree(this,'chorki')">🇧🇩 Chorki</div>
+      <div class="cat-chip" onclick="filterFree(this,'hoichoi')">🎬 Hoichoi</div>
+      <div class="cat-chip" onclick="filterFree(this,'bongo')">📺 Bongo BD</div>
+    </div>
+
+    <div class="movie-grid" id="freeMoviesGrid"></div>
+  </div>
+
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Cine<span>Scope</span></div>
-  <div class="footer-credit">Powered by <a href="https://www.themoviedb.org" target="_blank">TMDB API</a> · Data updates in real-time</div>
+  <div class="contact-section" id="contact">
+    <div class="contact-title">📬 যোগাযোগ করুন</div>
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div>
+          <div class="contact-label">ইমেইল</div>
+          <div class="contact-value"><a href="mailto:imran.imrankhanrana.khan3@gmail.com">imran.imrankhanrana.khan3@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📱</div>
+        <div>
+          <div class="contact-label">মোবাইল</div>
+          <div class="contact-value">
+            <a href="tel:+8801974119947">01974-119947</a> &nbsp;/&nbsp;
+            <a href="tel:+8801674119947">01674-119947</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">ঠিকানা</div>
+          <div class="contact-value">Abdul Kader Miajir (Haider) Bari,<br>Ekabbarpur, Chandragonj,<br>Begumgonj, Noakhali.</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div style="font-size:0.9rem;font-weight:600;margin-bottom:4px;color:var(--muted)">আমাদের বার্তা পাঠান</div>
+      <input class="form-input" type="text" placeholder="আপনার নাম">
+      <input class="form-input" type="email" placeholder="আপনার ইমেইল">
+      <textarea class="form-textarea" placeholder="আপনার বার্তা লিখুন..."></textarea>
+      <button class="form-submit" onclick="submitForm()">📨 বার্তা পাঠান</button>
+    </div>
+  </div>
+  <div class="footer-top">
+    <div class="footer-logo">Cine<span>Scope</span></div>
+    <div class="footer-credit">Powered by <a href="https://www.themoviedb.org" target="_blank">TMDB API</a> · Data updates in real-time</div>
+  </div>
 </footer>
+
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
@@ -723,14 +1001,36 @@ async function openModal(id) {
   const streamData = providers?.results?.US?.flatrate || providers?.results?.GB?.flatrate || [];
   const buyData = providers?.results?.US?.buy || [];
 
-  const streamingHTML = streamData.length
-    ? streamData.slice(0,4).map(p =>
-        `<a class="stream-btn" href="https://www.justwatch.com/us/search?q=${encodeURIComponent(detail.title)}" target="_blank">
-          ${p.logo_path ? `<img src="${IMG}w45${p.logo_path}" style="width:20px;height:20px;border-radius:4px;object-fit:cover" alt="">` : '📺'}
-          ${p.provider_name}
-        </a>`).join('')
-    : `<a class="stream-btn" href="https://www.justwatch.com/us/search?q=${encodeURIComponent(detail.title)}" target="_blank">🔍 Find on JustWatch</a>
-       <a class="stream-btn" href="https://www.amazon.com/s?k=${encodeURIComponent(detail.title)}" target="_blank">📦 Amazon</a>`;
+  // Bangladesh & Global streaming platforms
+  const bdPlatforms = [
+    { name: 'Chorki', icon: '🇧🇩', url: `https://www.chorki.com/search?q=${encodeURIComponent(detail.title)}`, color: '#e63946' },
+    { name: 'Hoichoi', icon: '🎬', url: `https://www.hoichoi.tv/search?q=${encodeURIComponent(detail.title)}`, color: '#ff6b35' },
+    { name: 'Bongo BD', icon: '📺', url: `https://www.bongo.com.bd/search?q=${encodeURIComponent(detail.title)}`, color: '#22c55e' },
+    { name: 'Toffee', icon: '🍬', url: `https://toffee.im/search?q=${encodeURIComponent(detail.title)}`, color: '#4cc9f0' },
+  ];
+
+  const globalPlatforms = [
+    { name: 'Netflix', icon: '🔴', url: `https://www.netflix.com/search?q=${encodeURIComponent(detail.title)}` },
+    { name: 'Amazon Prime', icon: '📦', url: `https://www.amazon.com/s?k=${encodeURIComponent(detail.title)}+movie` },
+    { name: 'YouTube', icon: '▶', url: `https://www.youtube.com/results?search_query=${encodeURIComponent(detail.title)}+full+movie` },
+    { name: 'JustWatch', icon: '🔍', url: `https://www.justwatch.com/us/search?q=${encodeURIComponent(detail.title)}` },
+  ];
+
+  const streamingHTML = `
+    <div style="margin-bottom:10px">
+      <div class="modal-section-label" style="color:var(--accent);margin-bottom:8px">🇧🇩 বাংলাদেশি প্ল্যাটফর্ম</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+        ${bdPlatforms.map(p => `<a class="stream-btn" href="${p.url}" target="_blank" style="border-color:${p.color};color:${p.color}">${p.icon} ${p.name}</a>`).join('')}
+      </div>
+      <div class="modal-section-label" style="margin-bottom:8px">🌍 আন্তর্জাতিক প্ল্যাটফর্ম</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${globalPlatforms.map(p => `<a class="stream-btn" href="${p.url}" target="_blank">${p.icon} ${p.name}</a>`).join('')}
+        ${streamData.slice(0,2).map(p => `<a class="stream-btn" href="https://www.justwatch.com/us/search?q=${encodeURIComponent(detail.title)}" target="_blank">
+          ${p.logo_path ? `<img src="${IMG}w45${p.logo_path}" style="width:16px;height:16px;border-radius:3px;object-fit:cover" alt="">` : '📺'} ${p.provider_name}
+        </a>`).join('')}
+      </div>
+    </div>
+  `;
 
   body.innerHTML = `
     <h2 class="modal-title">${detail.title}</h2>
@@ -746,10 +1046,10 @@ async function openModal(id) {
       <div><span style="color:var(--muted)">Language: </span><span>${detail.original_language?.toUpperCase()}</span></div>
       ${cast ? `<div style="grid-column:1/-1"><span style="color:var(--muted)">Cast: </span><span>${cast}</span></div>` : ''}
     </div>
-    <div class="modal-section-label">Where to Watch</div>
-    <div class="streaming-links">
+    <div class="modal-section-label">কোথায় দেখবেন?</div>
+    <div class="streaming-links" style="flex-direction:column;align-items:flex-start">
       ${streamingHTML}
-      <a class="stream-btn imdb" href="https://www.imdb.com/find?q=${encodeURIComponent(detail.title)}" target="_blank">⭐ IMDb</a>
+      <a class="stream-btn imdb" href="https://www.imdb.com/find?q=${encodeURIComponent(detail.title)}" target="_blank" style="margin-top:4px">⭐ IMDb তথ্য দেখুন</a>
     </div>
     ${trailer
       ? `<a class="modal-trailer-btn" href="https://www.youtube.com/watch?v=${trailer.key}" target="_blank">▶ Watch Trailer on YouTube</a>`
@@ -819,8 +1119,309 @@ function showToast(msg) {
 const GENRES = {28:'Action',12:'Adventure',16:'Animation',35:'Comedy',80:'Crime',99:'Documentary',18:'Drama',10751:'Family',14:'Fantasy',36:'History',27:'Horror',10402:'Music',9648:'Mystery',10749:'Romance',878:'Sci-Fi',10770:'TV Movie',53:'Thriller',10752:'War',37:'Western'};
 function genreName(id) { return GENRES[id] || 'Other'; }
 
+// ── CONTACT ──
+function submitForm() { showToast("✅ বার্তা পাঠানো হয়েছে! ধন্যবাদ।"); }
+
+
+// ── ADMIN ──
+let customMovies = JSON.parse(localStorage.getItem('csMovies') || '[]');
+let adminNewCount = 0;
+
+function openAdmin() {
+  document.getElementById('adminOverlay').classList.add('open');
+  document.getElementById('adminLogin').style.display = 'flex';
+  document.getElementById('adminDash').style.display = 'none';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAdmin() {
+  document.getElementById('adminOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function checkLogin() {
+  const pass = document.getElementById('adminPass').value;
+  if(pass === 'admin123') {
+    document.getElementById('adminLogin').style.display = 'none';
+    document.getElementById('adminDash').style.display = 'block';
+    renderAdminList();
+    updateAdminStats();
+  } else {
+    showToast('❌ পাসওয়ার্ড ভুল!');
+    document.getElementById('adminPass').value = '';
+  }
+}
+
+function updatePreview() {
+  const title = document.getElementById('aTitle').value;
+  const poster = document.getElementById('aPoster').value;
+  const prev = document.getElementById('adminPreview');
+  if(!title) { prev.style.display = 'none'; return; }
+  prev.style.display = 'flex';
+  document.getElementById('previewTitle').textContent = title || '—';
+  document.getElementById('previewMeta').textContent = document.getElementById('aYear').value || '—';
+  const pp = document.getElementById('previewPoster');
+  if(poster) {
+    pp.innerHTML = `<img src="${poster}" style="width:60px;height:88px;border-radius:10px;object-fit:cover" onerror="this.parentNode.innerHTML='🎬'">`;
+  } else {
+    pp.innerHTML = '🎬';
+  }
+}
+
+function addCustomMovie() {
+  const title = document.getElementById('aTitle').value.trim();
+  if(!title) { showToast('⚠️ মুভির নাম দিন!'); return; }
+
+  const movie = {
+    id: 'custom_' + Date.now(),
+    title,
+    release_date: document.getElementById('aYear').value + '-01-01',
+    poster_path: null,
+    posterUrl: document.getElementById('aPoster').value,
+    vote_average: parseFloat(document.getElementById('aRating').value) || 0,
+    genre: document.getElementById('aGenre').value,
+    overview: document.getElementById('aOverview').value,
+    trailer: document.getElementById('aTrailer').value,
+    netflix: document.getElementById('aNetflix').value,
+    youtube: document.getElementById('aYoutube').value,
+    custom: true,
+  };
+
+  customMovies.unshift(movie);
+  localStorage.setItem('csMovies', JSON.stringify(customMovies));
+  adminNewCount++;
+  renderAdminList();
+  updateAdminStats();
+  addToHomepage(movie);
+  clearAdminForm();
+  showToast('✅ মুভি সফলভাবে যোগ হয়েছে!');
+}
+
+function clearAdminForm() {
+  ['aTitle','aYear','aPoster','aRating','aOverview','aTrailer','aNetflix','aYoutube'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('aGenre').value = '';
+  document.getElementById('adminPreview').style.display = 'none';
+}
+
+function addToHomepage(movie) {
+  const grid = document.getElementById('trendingRow');
+  const card = document.createElement('div');
+  card.innerHTML = movieCard({
+    ...movie,
+    poster_path: null,
+    genre_ids: [],
+  });
+  grid.insertBefore(card.firstElementChild, grid.firstChild);
+}
+
+function renderAdminList() {
+  const container = document.getElementById('adminMovieList');
+  if(!customMovies.length) {
+    container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted);font-size:0.85rem">এখনো কোনো মুভি যোগ করা হয়নি</div>';
+    return;
+  }
+  container.innerHTML = customMovies.map((m,i) => `
+    <div class="movie-list-item">
+      <div class="movie-list-thumb">
+        ${m.posterUrl ? `<img src="${m.posterUrl}" style="width:44px;height:64px;border-radius:8px;object-fit:cover" onerror="this.parentNode.innerHTML='🎬'">` : '🎬'}
+      </div>
+      <div class="movie-list-info">
+        <div class="movie-list-name">${m.title}</div>
+        <div class="movie-list-meta">${m.release_date?.slice(0,4)||'—'} · ${m.genre||'—'} · ★ ${m.vote_average||'—'}</div>
+      </div>
+      <button class="movie-list-del" onclick="deleteMovie(${i})">🗑</button>
+    </div>
+  `).join('');
+}
+
+function deleteMovie(i) {
+  customMovies.splice(i, 1);
+  localStorage.setItem('csMovies', JSON.stringify(customMovies));
+  renderAdminList();
+  updateAdminStats();
+  showToast('🗑 মুভি মুছে ফেলা হয়েছে');
+}
+
+function updateAdminStats() {
+  document.getElementById('adminStatTotal').textContent = customMovies.length;
+  document.getElementById('adminStatNew').textContent = adminNewCount;
+}
+
+// Load saved movies on startup
+function loadSavedMovies() {
+  if(customMovies.length) {
+    const row = document.getElementById('trendingRow');
+    customMovies.forEach(m => {
+      const card = document.createElement('div');
+      card.innerHTML = movieCard({ ...m, poster_path: null, genre_ids: [] });
+      if(row && card.firstElementChild) row.insertBefore(card.firstElementChild, row.firstChild);
+    });
+  }
+}
+
+
+// ── FREE MOVIES ──
+const freeMovies = [
+  // YouTube Free Movies (Bengali & International)
+  { id:'yt1', title:'Padma Nadir Majhi', year:'1993', emoji:'🎭', platform:'youtube', platformLabel:'YouTube', color:'#ff0000', url:'https://www.youtube.com/watch?v=7Lf3OFT0VGQ', genre:'Drama', rating:'8.2' },
+  { id:'yt2', title:'Surja Dighal Bari', year:'1979', emoji:'🏡', platform:'youtube', platformLabel:'YouTube', color:'#ff0000', url:'https://www.youtube.com/watch?v=example', genre:'Drama', rating:'8.5' },
+  { id:'yt3', title:'Jibon Theke Neya', year:'1970', emoji:'🎬', platform:'youtube', platformLabel:'YouTube', color:'#ff0000', url:'https://www.youtube.com/results?search_query=jibon+theke+neya+full+movie', genre:'Classic', rating:'9.0' },
+  { id:'yt4', title:'Rupban', year:'1965', emoji:'👸', platform:'youtube', platformLabel:'YouTube', color:'#ff0000', url:'https://www.youtube.com/results?search_query=rupban+bangla+full+movie', genre:'Classic', rating:'7.8' },
+  { id:'yt5', title:'Ora Egaro Jon', year:'1972', emoji:'⚔️', platform:'youtube', platformLabel:'YouTube', color:'#ff0000', url:'https://www.youtube.com/results?search_query=ora+egaro+jon+full+movie', genre:'War', rating:'8.7' },
+  { id:'yt6', title:'Chapabaz', year:'2019', emoji:'🥊', platform:'youtube', platformLabel:'YouTube', color:'#ff0000', url:'https://www.youtube.com/results?search_query=chapabaz+bangla+full+movie', genre:'Action', rating:'7.5' },
+
+  // Chorki Free Movies
+  { id:'ch1', title:'Hawa', year:'2022', emoji:'🌊', platform:'chorki', platformLabel:'Chorki', color:'#e63946', url:'https://www.chorki.com/bn/videos/hawa', genre:'Thriller', rating:'8.5' },
+  { id:'ch2', title:'Poran', year:'2022', emoji:'❤️', platform:'chorki', platformLabel:'Chorki', color:'#e63946', url:'https://www.chorki.com', genre:'Romance', rating:'7.8' },
+  { id:'ch3', title:'Shonibar Bikel', year:'2019', emoji:'☀️', platform:'chorki', platformLabel:'Chorki', color:'#e63946', url:'https://www.chorki.com', genre:'Drama', rating:'8.1' },
+  { id:'ch4', title:'Rehana Maryam Noor', year:'2021', emoji:'👩', platform:'chorki', platformLabel:'Chorki', color:'#e63946', url:'https://www.chorki.com', genre:'Drama', rating:'7.9' },
+
+  // Hoichoi Free Movies
+  { id:'hoi1', title:'Byomkesh Bakshi', year:'2015', emoji:'🔍', platform:'hoichoi', platformLabel:'Hoichoi', color:'#ff6b35', url:'https://www.hoichoi.tv/movies/byomkesh-bakshi', genre:'Mystery', rating:'7.6' },
+  { id:'hoi2', title:'Chander Pahar', year:'2013', emoji:'🏔️', platform:'hoichoi', platformLabel:'Hoichoi', color:'#ff6b35', url:'https://www.hoichoi.tv/movies/chander-pahar', genre:'Adventure', rating:'8.0' },
+  { id:'hoi3', title:'Chotushkone', year:'2014', emoji:'🎭', platform:'hoichoi', platformLabel:'Hoichoi', color:'#ff6b35', url:'https://www.hoichoi.tv/movies/chotushkone', genre:'Thriller', rating:'7.4' },
+  { id:'hoi4', title:'Apur Sansar', year:'1959', emoji:'🌟', platform:'hoichoi', platformLabel:'Hoichoi', color:'#ff6b35', url:'https://www.hoichoi.tv', genre:'Classic', rating:'8.8' },
+
+  // Bongo BD Free Movies
+  { id:'bg1', title:'Debi', year:'2018', emoji:'🙏', platform:'bongo', platformLabel:'Bongo BD', color:'#22c55e', url:'https://www.bongo.com.bd/movie/debi', genre:'Supernatural', rating:'7.3' },
+  { id:'bg2', title:'Dhaka Attack', year:'2017', emoji:'💥', platform:'bongo', platformLabel:'Bongo BD', color:'#22c55e', url:'https://www.bongo.com.bd/movie/dhaka-attack', genre:'Action', rating:'7.1' },
+  { id:'bg3', title:'Aynabaji', year:'2016', emoji:'🎭', platform:'bongo', platformLabel:'Bongo BD', color:'#22c55e', url:'https://www.bongo.com.bd/movie/aynabaji', genre:'Drama', rating:'8.3' },
+  { id:'bg4', title:'Doob', year:'2017', emoji:'🌊', platform:'bongo', platformLabel:'Bongo BD', color:'#22c55e', url:'https://www.bongo.com.bd', genre:'Drama', rating:'7.6' },
+];
+
+let currentFreePlatform = 'all';
+
+function filterFree(el, platform) {
+  document.querySelectorAll('#freemovies .cat-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  currentFreePlatform = platform;
+  renderFreeMovies(platform);
+}
+
+function renderFreeMovies(platform='all') {
+  const filtered = platform === 'all' ? freeMovies : freeMovies.filter(m => m.platform === platform);
+  const grid = document.getElementById('freeMoviesGrid');
+  grid.innerHTML = filtered.map((m,i) => `
+    <div class="movie-card" style="animation-delay:${i*0.05}s" onclick="window.open('${m.url}','_blank')">
+      <div style="position:relative">
+        <div class="movie-poster-placeholder" style="background:linear-gradient(135deg,#0a0a1a,#1a1a2e)">
+          <div style="font-size:2.5rem">${m.emoji}</div>
+        </div>
+        <div class="movie-rating-badge">★ ${m.rating}</div>
+        <div style="position:absolute;bottom:8px;left:8px;background:${m.color};color:white;font-size:0.6rem;font-weight:700;padding:3px 8px;border-radius:6px">${m.platformLabel}</div>
+        <div style="position:absolute;top:8px;left:8px;background:#22c55e;color:white;font-size:0.6rem;font-weight:700;padding:3px 8px;border-radius:6px">FREE</div>
+      </div>
+      <div class="movie-info">
+        <div class="movie-title">${m.title}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div class="movie-year">${m.year} · ${m.genre}</div>
+        </div>
+        <button style="width:100%;margin-top:8px;padding:7px;border-radius:8px;background:${m.color};border:none;color:white;font-size:0.75rem;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif" onclick="event.stopPropagation();window.open('${m.url}','_blank')">▶ এখনই দেখুন</button>
+      </div>
+    </div>
+  `).join('');
+}
+
 // ── START ──
 init();
+renderFreeMovies();
+loadSavedMovies();
 </script>
+
+<!-- ADMIN BUTTON (fixed) -->
+<button class="admin-fab" onclick="openAdmin()" title="Admin Panel">⚙️</button>
+
+<!-- ADMIN OVERLAY -->
+<div class="admin-overlay" id="adminOverlay">
+  <!-- LOGIN SCREEN -->
+  <div id="adminLogin" class="admin-login">
+    <div class="admin-login-box">
+      <div style="font-size:3rem;margin-bottom:12px">🎬</div>
+      <div class="admin-login-title">Admin <span style="color:var(--accent)">Panel</span></div>
+      <div class="admin-login-sub">CineScope Management System</div>
+      <input class="admin-input" type="password" id="adminPass" placeholder="পাসওয়ার্ড দিন" onkeydown="if(event.key==='Enter')checkLogin()">
+      <button class="admin-submit" onclick="checkLogin()">🔐 লগইন করুন</button>
+      <button style="width:100%;padding:12px;border-radius:12px;background:transparent;border:1px solid var(--border);color:var(--muted);cursor:pointer;margin-top:8px;font-family:DM Sans,sans-serif" onclick="closeAdmin()">বাতিল করুন</button>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:16px">ডিফল্ট পাসওয়ার্ড: <span style="color:var(--accent)">admin123</span></div>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
+  <div id="adminDash" style="display:none">
+    <div class="admin-header">
+      <div class="admin-title">⚙️ Admin <span>Panel</span></div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span style="font-size:0.8rem;color:var(--muted)">স্বাগতম, Admin</span>
+        <button class="admin-close" onclick="closeAdmin()">✕</button>
+      </div>
+    </div>
+
+    <div class="admin-body">
+      <!-- STATS -->
+      <div class="admin-card full">
+        <div class="admin-card-title">📊 ড্যাশবোর্ড</div>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-box-num" id="adminStatTotal">0</div>
+            <div class="stat-box-label">মোট মুভি</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num" id="adminStatNew">0</div>
+            <div class="stat-box-label">নতুন যোগ</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num">Live</div>
+            <div class="stat-box-label">TMDB ডেটা</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADD MOVIE FORM -->
+      <div class="admin-card">
+        <div class="admin-card-title">➕ নতুন মুভি যোগ করুন</div>
+
+        <input class="admin-input" id="aTitle" placeholder="মুভির নাম *" oninput="updatePreview()">
+        <input class="admin-input" id="aYear" placeholder="রিলিজ সাল (যেমন: 2024)">
+        <input class="admin-input" id="aPoster" placeholder="পোস্টার ইমেজ URL" oninput="updatePreview()">
+        <input class="admin-input" id="aRating" placeholder="রেটিং (যেমন: 8.5)">
+
+        <select class="admin-select" id="aGenre">
+          <option value="">ঘরানা বেছে নিন</option>
+          <option>Action</option><option>Adventure</option><option>Animation</option>
+          <option>Comedy</option><option>Crime</option><option>Drama</option>
+          <option>Fantasy</option><option>Horror</option><option>Romance</option>
+          <option>Sci-Fi</option><option>Thriller</option>
+        </select>
+
+        <textarea class="admin-textarea" id="aOverview" placeholder="মুভির বিবরণ লিখুন..."></textarea>
+        <input class="admin-input" id="aTrailer" placeholder="YouTube ট্রেইলার লিংক">
+        <input class="admin-input" id="aNetflix" placeholder="Netflix লিংক (যদি থাকে)">
+        <input class="admin-input" id="aYoutube" placeholder="YouTube/অন্য স্ট্রিমিং লিংক">
+
+        <!-- PREVIEW -->
+        <div class="admin-preview" id="adminPreview" style="display:none">
+          <div class="admin-preview-poster" id="previewPoster">🎬</div>
+          <div class="admin-preview-info">
+            <div class="admin-preview-title" id="previewTitle">—</div>
+            <div class="admin-preview-meta" id="previewMeta">—</div>
+          </div>
+        </div>
+
+        <button class="admin-submit" onclick="addCustomMovie()">➕ মুভি যোগ করুন</button>
+      </div>
+
+      <!-- MOVIE LIST -->
+      <div class="admin-card">
+        <div class="admin-card-title">🎬 যোগ করা মুভির তালিকা</div>
+        <div id="adminMovieList">
+          <div style="text-align:center;padding:30px;color:var(--muted);font-size:0.85rem">এখনো কোনো মুভি যোগ করা হয়নি</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
